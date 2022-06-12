@@ -32,6 +32,7 @@ const searchBar = () => {
         $div.classList.add("body-products");
         $div.appendChild(spinner());
         $root.firstElementChild.lastElementChild.replaceWith($div);
+        stateVariable.page = 1;
         let productsByName = getProductByName(nameSearch).then(products => products.slice(0, 12).map((product) => {
             let $productDiv = document.createElement("div");
             $productDiv.classList.add("card-product");
