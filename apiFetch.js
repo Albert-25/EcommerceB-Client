@@ -59,9 +59,9 @@ export async function sortProductsByDiscount(value) {
     }
 }
 
-export async function filterProductsByCategory(category) {
+export async function filterProductsByCategory(categoryId) {
     try {
-        let response = await fetch(`${urlBase}/products/category?name=${category}`);
+        let response = await fetch(`${urlBase}/products/category?name=${categoryId}`);
         let json = response.json();
         return json;
     } catch (e) {

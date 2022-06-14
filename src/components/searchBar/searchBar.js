@@ -1,4 +1,4 @@
-import { getProductByName } from "../../../apiFetch.js";
+import { getProductByName, getAllProducts } from "../../../apiFetch.js";
 import productCard from "../productCard/productCard.js";
 import $root from "../../../index.js";
 import stateVariable from "../../../stateVariable.js";
@@ -33,7 +33,9 @@ const searchBar = () => {
         $div.appendChild(spinner());
         $root.firstElementChild.lastElementChild.replaceWith($div);
         stateVariable.page = 1;
-        let productsByName = getProductByName(nameSearch).then(products => products.slice(0, 12).map((product) => {
+        let productsPromise = nameSearch == "asasa" ? getAllProducts() : getProductByName(nameSearch);
+
+        let productsByName = productsPromise.then(products => products.slice(0, 12).map((product) => {
             let $productDiv = document.createElement("div");
             $productDiv.classList.add("card-product");
             let urlImage = product.url_image ? product.url_image : "../src/img/imageNoAvailable.png";

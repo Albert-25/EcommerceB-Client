@@ -22,6 +22,7 @@ const sortCategoryFilter = () => {
         let $option = document.createElement("option");
         $option.value = category.name;
         $option.innerText = category.name;
+        $option.id = category.id;
         $selectOrderCategory.appendChild($option);
     }))
 
@@ -30,8 +31,18 @@ const sortCategoryFilter = () => {
         $div.classList.add("body-products");
         $div.appendChild(spinner());
         $root.firstElementChild.lastElementChild.replaceWith($div);
+
+        let selectElemnt = $root.firstElementChild.children[2].children[3].lastElementChild;
+        let categoryId;
+        for (let i = 0; i < selectElemnt.childElementCount; i++) {
+            const element = selectElemnt[i];
+            if(value == element.value){
+                categoryId = element.id
+            }
+        }
+        console.log("caaaaaaaaaaa ",categoryId);
         stateVariable.page = 1;
-        let productsByCategorySort = filterProductsByCategory(value).then(products => products.slice(0, 12).map((product) => {
+        let productsByCategorySort = filterProductsByCategory(categoryId).then(products => products.slice(0, 12).map((product) => {
             let $productDiv = document.createElement("div");
             $productDiv.classList.add("card-product");
             let urlImage = product.url_image ? product.url_image : "../src/img/imageNoAvailable.png";
