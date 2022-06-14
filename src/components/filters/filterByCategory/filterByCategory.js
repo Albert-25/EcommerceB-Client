@@ -36,11 +36,11 @@ const sortCategoryFilter = () => {
         let categoryId;
         for (let i = 0; i < selectElemnt.childElementCount; i++) {
             const element = selectElemnt[i];
-            if(value == element.value){
+            if (value == element.value) {
                 categoryId = element.id
             }
         }
-        console.log("caaaaaaaaaaa ",categoryId);
+
         stateVariable.page = 1;
         let productsByCategorySort = filterProductsByCategory(categoryId).then(products => products.slice(0, 12).map((product) => {
             let $productDiv = document.createElement("div");
@@ -72,7 +72,7 @@ const sortCategoryFilter = () => {
         stateVariable.priceSort = false
         stateVariable.discountSort = false
         stateVariable.categoryFilter = true
-        $root.firstElementChild.children[3].replaceWith(pagination(null, null, value, null, null));
+        $root.firstElementChild.children[3].replaceWith(pagination(null, null, categoryId, null, null));
     }
 
     $selectOrderCategory.addEventListener("change", (e) => handleFilterCategory(e.target.value));
