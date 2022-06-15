@@ -9,7 +9,7 @@ import searchBar from "./src/components/searchBar/searchBar.js";
 
 const app = ()=>{
     const $div = document.createElement("div");
-    const $divFilters = document.createElement("div");
+    const $divFilters = document.createElement("div");// creamos este div para agregar todos los div de filtros
     $divFilters.classList.add("container-filters");
     $divFilters.appendChild(sortNameFilter());
     $divFilters.appendChild(sortPriceFilter());

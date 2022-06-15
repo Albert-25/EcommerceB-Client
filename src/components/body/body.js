@@ -3,10 +3,11 @@ import { getAllProducts } from "../../../apiFetch.js";
 import spinner from "../spinner/spinner.js";
 
 const body = () => {
-    const $div = document.createElement("div");
+    const $div = document.createElement("div");// creamos el div que sera agregado a app
     $div.classList.add("body-products");
-    $div.appendChild(spinner());
+    $div.appendChild(spinner());// renderizamos el spinner mientras llega la respuesta de la api
 
+    // Obetenemos los doce primeros productos de la api para luego inyectarlos al $div
     const $products = getAllProducts().then(products => products.slice(0,12).map((product) => {
         let $productDiv = document.createElement("div");
         $productDiv.classList.add("card-product");
@@ -25,9 +26,9 @@ const body = () => {
         }
 
         if ($div.firstElementChild.className == "spinner") {
-            $div.removeChild($div.firstElementChild);
+            $div.removeChild($div.firstElementChild); // quitamos el spinner y en su lugar renderizamos los productos
         }
-        $div.appendChild(product);
+        $div.appendChild(product); // agregamos cada producto al $div
 
     }));
 

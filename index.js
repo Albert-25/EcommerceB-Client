@@ -8,11 +8,12 @@ import stylesSpinner from "./src/components/spinner/styles.js";
 const $root = document.getElementById("root");
 
 $root.appendChild(app());
+// inyectamos los estilos de los componentes
 $root.appendChild(stylesProductCard);
 $root.appendChild(stylesFilters);
 $root.appendChild(stylesSeachBar);
 $root.appendChild(stylesHeader);
 $root.appendChild(stylesPagination);
 $root.appendChild(stylesSpinner);
-export default $root;
+export default $root; 
 

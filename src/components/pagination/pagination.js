@@ -11,22 +11,21 @@ import $root from "../../../index.js";
 import stateVariable from "../../../stateVariable.js";
 import spinner from "../../components/spinner/spinner.js";
 
-let statePagination;
-let requestType;
-let parameter;
+let statePagination; // esta variable sirve para verificar cual es el ultimo filtro que tuvo un evento de onClick 
+let requestType; // esta variable sirve para almacenar el tipo de peticion a la api de acuerdo con la variable de arriba
+let parameter; // nos ayuda a almacenar la query dependiendo del tipo de peticion a la api
 
-const pagination = (nameSortQuery, priceSortQuery, categoryFilterQuery, discountFilterQuery, nameSearch) => {
-
-    const $navPagination = document.createElement("nav");
+const pagination = (nameSortQuery, priceSortQuery, categoryFilterQuery, discountFilterQuery, nameSearch) => { // estos parametros indican su respectiva query
+    const $navPagination = document.createElement("nav");// creamos el div para agregarlo al div root
     $navPagination.classList.add("container-nav-pagination");
 
     for (const state in stateVariable) {
-        if (stateVariable[state] == true) {
+        if (stateVariable[state] == true) { // verificamos cual fue el ultimo filtro donde se hizo el evento click
             statePagination = state;
             break;
         }
     }
-
+    //asignamos la peticion a requestype dependiendo del ultimo filtro clickeado
     switch (statePagination) {
         case "home":
             requestType = getAllProducts;
@@ -63,7 +62,7 @@ const pagination = (nameSortQuery, priceSortQuery, categoryFilterQuery, discount
         const pagesNumber = Math.ceil(productsNumber / 12);
 
         for (let i = 1; i <= pagesNumber; i++) {
-
+            // en este bucle creamos el paginado de acuerdo al tipo de peticion 
             const $li = document.createElement("li");
             $li.classList.add("number-li");
             const $a = document.createElement("a");
@@ -78,14 +77,17 @@ const pagination = (nameSortQuery, priceSortQuery, categoryFilterQuery, discount
         }
 
         const onclick = (pageNumber) => {
+            // agregamos el spinner mientras llega la respuesta de la api
             const $div = document.createElement("div");
             $div.classList.add("body-products");
             $div.appendChild(spinner());
             $root.firstElementChild.lastElementChild.replaceWith($div);
-            stateVariable.page = pageNumber;
+            stateVariable.page = pageNumber; // indicamos la pagina en la cual se encuentra
+            // renderizamos nuevamente el paginado con la pagina actualizada
             $root.firstElementChild.children[3].replaceWith(pagination(nameSortQuery, priceSortQuery, categoryFilterQuery, discountFilterQuery, nameSearch));
 
             const allProducts = requestType(parameter).then(products => {
+                //traemos los productos y de acuerdo a la pagina en la que se encuentre con la ayuda del metodo slice
                 let productsSlice = products.slice((pageNumber - 1) * 12, pageNumber * 12);
                 productsSlice = productsSlice.map((product) => {
                     let $productDiv = document.createElement("div");
@@ -111,7 +113,7 @@ const pagination = (nameSortQuery, priceSortQuery, categoryFilterQuery, discount
                     }
                     $divBody.appendChild(product)
                 })
-                $root.firstElementChild.lastElementChild.replaceWith($divBody);
+                $root.firstElementChild.lastElementChild.replaceWith($divBody);//inyectamos los productos de la pagina actual en el div root
             })
 
         }
