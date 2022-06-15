@@ -31,7 +31,6 @@ const searchBar = () => {
         if(!nameSearch){
             nameSearch = " "; // esto sirve para renderizar todos los productos en vez de "not found" cuando se da click en "buscar" sin ningun nombre ingresado
         }
-        console.log(nameSearch)
         const $div = document.createElement("div");
         $div.classList.add("body-products");
         $div.appendChild(spinner());
