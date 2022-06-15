@@ -28,14 +28,16 @@ const searchBar = () => {
 
     $input.addEventListener("change", () => nameSearch = $input.value);
     $buttonSend.addEventListener("click", () => {
+        if(!nameSearch){
+            nameSearch = " "; // esto sirve para renderizar todos los productos en vez de "not found" cuando se da click en "buscar" sin ningun nombre ingresado
+        }
+        console.log(nameSearch)
         const $div = document.createElement("div");
         $div.classList.add("body-products");
         $div.appendChild(spinner());
         $root.firstElementChild.lastElementChild.replaceWith($div);
         stateVariable.page = 1;
-        let productsPromise = nameSearch == "asasa" ? getAllProducts() : getProductByName(nameSearch);
-
-        let productsByName = productsPromise.then(products => products.slice(0, 12).map((product) => {
+        let productsByName = getProductByName(nameSearch).then(products => products.slice(0, 12).map((product,i) => {
             let $productDiv = document.createElement("div");
             $productDiv.classList.add("card-product");
             let urlImage = product.url_image ? product.url_image : "../src/img/imageNoAvailable.png";
@@ -67,6 +69,7 @@ const searchBar = () => {
                 $img.src = "./src/img/product404.jpg";
                 $divImg.appendChild($img);
                 $root.firstElementChild.lastElementChild.replaceWith($divImg);
+                nameSearch = " "; // de esta forma obtenemos todos los productos cuando hay un click en "buscar" luego de no encontrar ningun producto con el nombre ingresado
             }
         })
         stateVariable.home = false
