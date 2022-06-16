@@ -64,6 +64,7 @@ const searchBar = () => {
                     $divBody.appendChild(product)
                 })
                 $root.firstElementChild.lastElementChild.replaceWith($divBody);// inyectamos en el body todos los productos con el nombre ingresado
+                nameSearch = " ";
             }
             else {
                 // en caso el producto ingresado no se encuentre en la base de datos 
